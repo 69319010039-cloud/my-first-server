@@ -25,15 +25,17 @@ const server = http.createServer((req, res) => {
             body{
                 height:100vh;
                 overflow:hidden;
-                background: linear-gradient(135deg, #ffeef8, #e0f4ff, #ffccf5, #ccf0ff);
+                background: linear-gradient(135deg, #ff4757, #ee5a6f, #ffffff, #ffe0e0, #ff69b4);
                 background-size: 400% 400%;
-                animation: gradientShift 15s ease infinite;
+                animation: gradientShift 20s ease infinite;
                 position: relative;
             }
 
             @keyframes gradientShift {
                 0% { background-position: 0% 50%; }
-                50% { background-position: 100% 50%; }
+                25% { background-position: 100% 50%; }
+                50% { background-position: 50% 100%; }
+                75% { background-position: 0% 50%; }
                 100% { background-position: 0% 50%; }
             }
 
@@ -50,21 +52,22 @@ const server = http.createServer((req, res) => {
 
             .bubble {
                 position: absolute;
-                background: radial-gradient(circle at 30% 30%, rgba(255, 200, 230, 0.8), rgba(150, 200, 255, 0.3));
+                background: radial-gradient(circle at 30% 30%, rgba(255, 71, 87, 0.6), rgba(255, 255, 255, 0.2));
                 border-radius: 50%;
-                opacity: 0.6;
+                opacity: 0.5;
                 animation: float linear infinite;
+                box-shadow: 0 0 30px rgba(255, 71, 87, 0.3);
             }
 
-            .bubble:nth-child(1) { width: 60px; height: 60px; bottom: -60px; left: 10%; animation-duration: 8s; }
-            .bubble:nth-child(2) { width: 80px; height: 80px; bottom: -80px; left: 20%; animation-duration: 10s; animation-delay: 1s; }
-            .bubble:nth-child(3) { width: 40px; height: 40px; bottom: -40px; left: 30%; animation-duration: 7s; animation-delay: 2s; }
-            .bubble:nth-child(4) { width: 70px; height: 70px; bottom: -70px; left: 40%; animation-duration: 11s; animation-delay: 0.5s; }
-            .bubble:nth-child(5) { width: 50px; height: 50px; bottom: -50px; left: 50%; animation-duration: 9s; animation-delay: 1.5s; }
-            .bubble:nth-child(6) { width: 85px; height: 85px; bottom: -85px; left: 60%; animation-duration: 12s; animation-delay: 0.8s; }
-            .bubble:nth-child(7) { width: 45px; height: 45px; bottom: -45px; left: 70%; animation-duration: 8.5s; animation-delay: 2.2s; }
-            .bubble:nth-child(8) { width: 65px; height: 65px; bottom: -65px; left: 80%; animation-duration: 10.5s; animation-delay: 1.2s; }
-            .bubble:nth-child(9) { width: 55px; height: 55px; bottom: -55px; left: 90%; animation-duration: 9.5s; animation-delay: 0.3s; }
+            .bubble:nth-child(1) { width: 80px; height: 80px; bottom: -80px; left: 10%; animation-duration: 12s; }
+            .bubble:nth-child(2) { width: 100px; height: 100px; bottom: -100px; left: 20%; animation-duration: 14s; animation-delay: 1s; }
+            .bubble:nth-child(3) { width: 60px; height: 60px; bottom: -60px; left: 30%; animation-duration: 10s; animation-delay: 2s; }
+            .bubble:nth-child(4) { width: 90px; height: 90px; bottom: -90px; left: 40%; animation-duration: 15s; animation-delay: 0.5s; }
+            .bubble:nth-child(5) { width: 70px; height: 70px; bottom: -70px; left: 50%; animation-duration: 13s; animation-delay: 1.5s; }
+            .bubble:nth-child(6) { width: 110px; height: 110px; bottom: -110px; left: 60%; animation-duration: 16s; animation-delay: 0.8s; }
+            .bubble:nth-child(7) { width: 65px; height: 65px; bottom: -65px; left: 70%; animation-duration: 11s; animation-delay: 2.2s; }
+            .bubble:nth-child(8) { width: 85px; height: 85px; bottom: -85px; left: 80%; animation-duration: 14.5s; animation-delay: 1.2s; }
+            .bubble:nth-child(9) { width: 75px; height: 75px; bottom: -75px; left: 90%; animation-duration: 12.5s; animation-delay: 0.3s; }
 
             @keyframes float {
                 0% {
@@ -72,13 +75,13 @@ const server = http.createServer((req, res) => {
                     opacity: 0;
                 }
                 10% {
-                    opacity: 0.6;
+                    opacity: 0.5;
                 }
                 90% {
-                    opacity: 0.3;
+                    opacity: 0.2;
                 }
                 100% {
-                    transform: translateY(-100vh) translateX(100px) scale(0.8);
+                    transform: translateY(-100vh) translateX(150px) scale(0.6);
                     opacity: 0;
                 }
             }
@@ -95,16 +98,17 @@ const server = http.createServer((req, res) => {
 
             .star {
                 position: absolute;
-                width: 3px;
-                height: 3px;
-                background: #fff;
+                width: 4px;
+                height: 4px;
+                background: #ffffff;
                 border-radius: 50%;
                 animation: twinkle 3s ease-in-out infinite;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
             }
 
             @keyframes twinkle {
-                0%, 100% { opacity: 0.3; }
-                50% { opacity: 1; }
+                0%, 100% { opacity: 0.3; transform: scale(0.5); }
+                50% { opacity: 1; transform: scale(1); }
             }
 
             /* Main content */
@@ -121,16 +125,16 @@ const server = http.createServer((req, res) => {
             }
 
             .card{
-                background: rgba(255, 255, 255, 0.98);
+                background: rgba(255, 255, 255, 0.96);
                 width: 85%;
-                max-width: 750px;
-                padding: 50px;
-                border-radius: 35px;
+                max-width: 850px;
+                padding: 60px;
+                border-radius: 40px;
                 text-align: center;
-                box-shadow: 0 20px 60px rgba(150, 100, 200, 0.3), 0 0 40px rgba(200, 150, 255, 0.2);
-                animation: slideUp 1s ease-out;
-                backdrop-filter: blur(10px);
-                border: 2px solid rgba(200, 150, 255, 0.3);
+                box-shadow: 0 30px 90px rgba(255, 71, 87, 0.4), 0 0 60px rgba(255, 105, 180, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+                animation: slideUp 1.2s ease-out;
+                backdrop-filter: blur(15px);
+                border: 3px solid rgba(255, 71, 87, 0.4);
                 position: relative;
                 overflow: hidden;
             }
@@ -141,20 +145,31 @@ const server = http.createServer((req, res) => {
                 top: 0;
                 left: 0;
                 right: 0;
-                height: 5px;
-                background: linear-gradient(90deg, #ff69b4, #87ceeb, #ff69b4);
-                animation: shimmer 2s infinite;
+                height: 6px;
+                background: linear-gradient(90deg, #ff4757, #ff69b4, #ff4757);
+                animation: shimmer 2.5s infinite;
+            }
+
+            .card::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, #ff4757, #ff69b4, #ff4757);
+                animation: shimmer 2.5s infinite reverse;
             }
 
             @keyframes shimmer {
-                0%, 100% { opacity: 0.5; }
+                0%, 100% { opacity: 0.6; }
                 50% { opacity: 1; }
             }
 
             @keyframes slideUp {
                 from {
                     opacity: 0;
-                    transform: translateY(50px);
+                    transform: translateY(80px);
                 }
                 to {
                     opacity: 1;
@@ -163,61 +178,79 @@ const server = http.createServer((req, res) => {
             }
 
             .avatar {
-                width: 140px;
-                height: 140px;
+                width: 160px;
+                height: 160px;
                 border-radius: 50%;
-                margin-bottom: 25px;
-                border: 6px solid;
-                border-image: linear-gradient(135deg, #ff69b4, #87ceeb) 1;
+                margin-bottom: 30px;
+                border: 8px solid;
+                border-image: linear-gradient(135deg, #ff4757, #ffffff) 1;
                 object-fit: cover;
-                animation: bounce 2s ease-in-out infinite;
-                box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
+                animation: bounce 2.5s ease-in-out infinite;
+                box-shadow: 0 15px 40px rgba(255, 71, 87, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.5);
             }
 
             @keyframes bounce {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-15px); }
+                0%, 100% { transform: translateY(0) scale(1); }
+                50% { transform: translateY(-20px) scale(1.02); }
             }
 
             h1 {
-                color: #ff1493;
-                margin-bottom: 15px;
-                font-size: 2.5rem;
-                font-weight: 700;
-                text-shadow: 0 2px 10px rgba(255, 105, 180, 0.2);
+                color: #ff4757;
+                margin-bottom: 20px;
+                font-size: 2.8rem;
+                font-weight: 800;
+                text-shadow: 0 4px 15px rgba(255, 71, 87, 0.3), 0 0 20px rgba(255, 255, 255, 0.8);
                 animation: fadeIn 1.2s ease-out;
+                letter-spacing: 1px;
             }
 
             h2 {
-                color: #4169e1;
+                color: #ff4757;
                 margin-bottom: 15px;
+                font-size: 1.6rem;
+                font-weight: 700;
+                animation: fadeIn 1.4s ease-out;
+            }
+
+            .nickname {
+                color: #ffffff;
+                background: linear-gradient(135deg, #ff4757, #ff69b4);
+                padding: 12px 30px;
+                border-radius: 25px;
                 font-size: 1.4rem;
-                font-weight: 600;
+                font-weight: 700;
+                display: inline-block;
+                margin: 15px 0;
+                box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
+                animation: fadeIn 1.5s ease-out;
+                letter-spacing: 0.5px;
             }
 
             p {
-                color: #555;
+                color: #333;
                 font-size: 1.1rem;
                 margin-bottom: 12px;
-                line-height: 1.6;
+                line-height: 1.8;
                 animation: fadeIn 1.4s ease-out;
             }
 
             .info {
-                background: linear-gradient(135deg, rgba(255, 192, 203, 0.3), rgba(135, 206, 235, 0.3));
-                padding: 25px;
-                border-radius: 20px;
-                margin-top: 25px;
-                border: 2px solid rgba(255, 105, 180, 0.3);
-                backdrop-filter: blur(5px);
+                background: linear-gradient(135deg, rgba(255, 71, 87, 0.15), rgba(255, 255, 255, 0.4));
+                padding: 30px;
+                border-radius: 25px;
+                margin-top: 30px;
+                border: 2px solid rgba(255, 71, 87, 0.3);
+                backdrop-filter: blur(10px);
                 animation: fadeIn 1.6s ease-out;
+                box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.5);
             }
 
             .status {
-                color: #ff1493;
-                font-weight: bold;
-                font-size: 1.3rem;
+                color: #ff4757;
+                font-weight: 900;
+                font-size: 1.4rem;
                 animation: pulse 2s ease-in-out infinite;
+                text-shadow: 0 2px 8px rgba(255, 71, 87, 0.3);
             }
 
             @keyframes pulse {
@@ -226,21 +259,23 @@ const server = http.createServer((req, res) => {
                     transform: scale(1);
                 }
                 50% { 
-                    opacity: 0.85;
-                    transform: scale(1.05);
+                    opacity: 0.8;
+                    transform: scale(1.08);
                 }
             }
 
             .info p:last-child {
-                color: #4169e1;
-                font-size: 1rem;
+                color: #ff4757;
+                font-size: 1.1rem;
+                font-weight: 600;
             }
 
             footer {
-                margin-top: 25px;
-                color: #87ceeb;
-                font-size: 0.95rem;
-                font-weight: 500;
+                margin-top: 30px;
+                color: #ff4757;
+                font-size: 1rem;
+                font-weight: 600;
+                animation: fadeIn 1.8s ease-out;
             }
 
             @keyframes fadeIn {
@@ -260,18 +295,35 @@ const server = http.createServer((req, res) => {
 
             .emoji-float {
                 position: absolute;
-                font-size: 3rem;
-                animation: float-emoji 6s ease-in-out infinite;
+                font-size: 4rem;
+                animation: float-emoji 7s ease-in-out infinite;
+                filter: drop-shadow(0 0 10px rgba(255, 71, 87, 0.3));
             }
 
-            .emoji1 { top: 15%; left: 8%; animation-delay: 0s; }
-            .emoji2 { top: 25%; right: 10%; animation-delay: 1s; }
-            .emoji3 { bottom: 20%; left: 10%; animation-delay: 2s; }
-            .emoji4 { bottom: 15%; right: 8%; animation-delay: 1.5s; }
+            .emoji1 { top: 12%; left: 5%; animation-delay: 0s; }
+            .emoji2 { top: 20%; right: 8%; animation-delay: 1s; }
+            .emoji3 { bottom: 15%; left: 8%; animation-delay: 2s; }
+            .emoji4 { bottom: 12%; right: 6%; animation-delay: 1.5s; }
 
             @keyframes float-emoji {
-                0%, 100% { transform: translateY(0) rotate(0deg); }
-                50% { transform: translateY(-30px) rotate(10deg); }
+                0%, 100% { transform: translateY(0) rotate(-5deg); }
+                50% { transform: translateY(-40px) rotate(5deg); }
+            }
+
+            /* Animated lines */
+            .line-decoration {
+                position: absolute;
+                height: 3px;
+                background: linear-gradient(90deg, transparent, #ff4757, transparent);
+                animation: slide linear infinite;
+            }
+
+            .line1 { top: 20%; width: 200px; left: -200px; animation-duration: 8s; }
+            .line2 { bottom: 30%; width: 250px; right: -250px; animation-duration: 10s; animation-delay: 2s; }
+
+            @keyframes slide {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(500px); }
             }
         </style>
     </head>
@@ -291,10 +343,14 @@ const server = http.createServer((req, res) => {
         </div>
 
         <!-- Floating emojis -->
-        <div class="decoration emoji1 emoji-float">✨</div>
-        <div class="decoration emoji2 emoji-float">💕</div>
-        <div class="decoration emoji3 emoji-float">🌸</div>
-        <div class="decoration emoji4 emoji-float">⭐</div>
+        <div class="decoration emoji1 emoji-float">💖</div>
+        <div class="decoration emoji2 emoji-float">✨</div>
+        <div class="decoration emoji3 emoji-float">🎀</div>
+        <div class="decoration emoji4 emoji-float">💕</div>
+
+        <!-- Animated lines -->
+        <div class="line-decoration line1"></div>
+        <div class="line-decoration line2"></div>
 
         <!-- Main container -->
         <div class="container">
@@ -303,20 +359,22 @@ const server = http.createServer((req, res) => {
                 src="https://i.pinimg.com/736x/3f/22/1a/3f221a0ad41e2d4e3c13a101c0d9f870.jpg"
                 alt="Profile">
 
-                <h1>🌸 Welcome to My Web Server 🌸</h1>
+                <h1>🌹 Welcome to My Server 🌹</h1>
 
                 <h2>นางสาวสุธิดา เคลือบคนโท</h2>
 
-                <p>รหัสนักศึกษา : 69319010039</p>
-                <p>สาขาเทคโนโลยีสารสนเทศ (IT)</p>
+                <div class="nickname">ชื่อเล่น : แก้ม</div>
+
+                <p><strong>รหัสนักศึกษา :</strong> 69319010039</p>
+                <p><strong>สาขา :</strong> เทคโนโลยีสารสนเทศ (IT)</p>
 
                 <div class="info">
-                    <p class="status">✅ Railway Server กำลังทำงานปกติ</p>
-                    <p>Node.js HTTP Server พร้อมใช้งาน 🚀</p>
+                    <p class="status">✅ Server กำลังทำงานปกติ</p>
+                    <p>🚀 Node.js HTTP Server พร้อมใช้งาน</p>
                 </div>
 
                 <footer>
-                    วิทยาลัยเทคโนโลยีชลบุรี | ปีการศึกษา 2569
+                    💼 วิทยาลัยเทคโนโลยีชลบุรี | ปีการศึกษา 2569
                 </footer>
             </div>
         </div>
