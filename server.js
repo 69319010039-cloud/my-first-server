@@ -232,159 +232,39 @@ const server = http.createServer((req, res) => {
                 margin-bottom: 12px;
                 line-height: 1.8;
                 animation: fadeIn 1.4s ease-out;
-            }
+            }const http = require('http');  // ✅ เพิ่มบรรทัดนี้
+const { Pool } = require('pg');
 
-            .info {
-                background: linear-gradient(135deg, rgba(255, 71, 87, 0.15), rgba(255, 255, 255, 0.4));
-                padding: 30px;
-                border-radius: 25px;
-                margin-top: 30px;
-                border: 2px solid rgba(255, 71, 87, 0.3);
-                backdrop-filter: blur(10px);
-                animation: fadeIn 1.6s ease-out;
-                box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.5);
-            }
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
 
-            .status {
-                color: #ff4757;
-                font-weight: 900;
-                font-size: 1.4rem;
-                animation: pulse 2s ease-in-out infinite;
-                text-shadow: 0 2px 8px rgba(255, 71, 87, 0.3);
-            }
+const port = process.env.PORT || 3000;
+const server = http.createServer(async (req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
 
-            @keyframes pulse {
-                0%, 100% { 
-                    opacity: 1;
-                    transform: scale(1);
-                }
-                50% { 
-                    opacity: 0.8;
-                    transform: scale(1.08);
-                }
-            }
-
-            .info p:last-child {
-                color: #ff4757;
-                font-size: 1.1rem;
-                font-weight: 600;
-            }
-
-            footer {
-                margin-top: 30px;
-                color: #ff4757;
-                font-size: 1rem;
-                font-weight: 600;
-                animation: fadeIn 1.8s ease-out;
-            }
-
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                }
-                to {
-                    opacity: 1;
-                }
-            }
-
-            /* Decorative elements */
-            .decoration {
-                position: absolute;
-                pointer-events: none;
-            }
-
-            .emoji-float {
-                position: absolute;
-                font-size: 4rem;
-                animation: float-emoji 7s ease-in-out infinite;
-                filter: drop-shadow(0 0 10px rgba(255, 71, 87, 0.3));
-            }
-
-            .emoji1 { top: 12%; left: 5%; animation-delay: 0s; }
-            .emoji2 { top: 20%; right: 8%; animation-delay: 1s; }
-            .emoji3 { bottom: 15%; left: 8%; animation-delay: 2s; }
-            .emoji4 { bottom: 12%; right: 6%; animation-delay: 1.5s; }
-
-            @keyframes float-emoji {
-                0%, 100% { transform: translateY(0) rotate(-5deg); }
-                50% { transform: translateY(-40px) rotate(5deg); }
-            }
-
-            /* Animated lines */
-            .line-decoration {
-                position: absolute;
-                height: 3px;
-                background: linear-gradient(90deg, transparent, #ff4757, transparent);
-                animation: slide linear infinite;
-            }
-
-            .line1 { top: 20%; width: 200px; left: -200px; animation-duration: 8s; }
-            .line2 { bottom: 30%; width: 250px; right: -250px; animation-duration: 10s; animation-delay: 2s; }
-
-            @keyframes slide {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(500px); }
-            }
-        </style>
-    </head>
-
-    <body>
-        <!-- Animated bubbles background -->
-        <div class="bubbles">
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-        </div>
-
-        <!-- Floating emojis -->
-        <div class="decoration emoji1 emoji-float">💖</div>
-        <div class="decoration emoji2 emoji-float">✨</div>
-        <div class="decoration emoji3 emoji-float">🎀</div>
-        <div class="decoration emoji4 emoji-float">💕</div>
-
-        <!-- Animated lines -->
-        <div class="line-decoration line1"></div>
-        <div class="line-decoration line2"></div>
-
-        <!-- Main container -->
-        <div class="container">
-            <div class="card">
-                <img class="avatar"
-                src="https://i.pinimg.com/736x/3f/22/1a/3f221a0ad41e2d4e3c13a101c0d9f870.jpg"
-                alt="Profile">
-
-                <h1>🌹 Welcome to My Server 🌹</h1>
-
-                <h2>นางสาวสุธิดา เคลือบคนโท</h2>
-
-                <div class="nickname">ชื่อเล่น : แก้ม</div>
-
-                <p><strong>รหัสนักศึกษา :</strong> 69319010039</p>
-                <p><strong>สาขา :</strong> เทคโนโลยีสารสนเทศ (IT)</p>
-
-                <div class="info">
-                    <p class="status">✅ Server กำลังทำงานปกติ</p>
-                    <p>🚀 Node.js HTTP Server พร้อมใช้งาน</p>
-                </div>
-
-                <footer>
-                    💼 วิทยาลัยเทคโนโลยีชลบุรี | ปีการศึกษา 2569
-                </footer>
-            </div>
-        </div>
-    </body>
-    </html>
-    `);
+  try {
+    const client = await pool.connect();
+    const result = await client.query('SELECT * FROM students');
+    client.release();
+    
+    let html = `<h1>ฐานขอมูลนักศึกษา (ทดสอบการเชื่อมตอ)</h1>`;
+    html += `<table border="1" cellpadding="10">`;
+    html += `<tr><th>รหัสนักศึกษา</th><th>ชื่อ-นามสกุล</th></tr>`;  // ✅ แก้ไข
+    
+    result.rows.forEach(row => {
+      html += `<tr><td>${row.student_id}</td><td>${row.student_name}</td></tr>`;
+    });
+    
+    html += `</table>`;
+    res.end(html);
+  } catch (err) {
+    console.error(err);
+    res.end(`<h1>เกิดขอผิดพลาด!</h1><p>${err.message}</p>`);
+  }
 });
 
 server.listen(port, () => {
-    console.log(
-        `Server is running! เครื่องแม่ข่ายเปิดทำงานแล้วที่ช่องทาง: ${port}`
-    );
+  console.log(`Server is running on port: ${port}`);
 });
