@@ -33,9 +33,9 @@ const server = http.createServer((req, res) => {
 
             @keyframes gradientShift {
                 0% { background-position: 0% 50%; }
-                25% { background-position: 100% 50%; }
-                50% { background-position: 50% 100%; }
-                75% { background-position: 0% 50%; }
+                25% { background-position: 50% 100%; }
+                50% { background-position: 100% 50%; }
+                75% { background-position: 50% 0%; }
                 100% { background-position: 0% 50%; }
             }
 
@@ -177,16 +177,26 @@ const server = http.createServer((req, res) => {
                 }
             }
 
-            .avatar {
-                width: 160px;
-                height: 160px;
+            /* Wrapper handles the gradient ring; border-image cannot be
+               combined with border-radius, so the ring is now built with
+               padding + background instead of border-image. */
+            .avatar-wrapper {
+                width: 176px;
+                height: 176px;
                 border-radius: 50%;
-                margin-bottom: 30px;
-                border: 8px solid;
-                border-image: linear-gradient(135deg, #ff4757, #ffffff) 1;
-                object-fit: cover;
+                padding: 8px;
+                margin: 0 auto 30px;
+                background: linear-gradient(135deg, #ff4757, #ffffff);
                 animation: bounce 2.5s ease-in-out infinite;
                 box-shadow: 0 15px 40px rgba(255, 71, 87, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.5);
+            }
+
+            .avatar {
+                width: 100%;
+                height: 100%;
+                display: block;
+                border-radius: 50%;
+                object-fit: cover;
             }
 
             @keyframes bounce {
@@ -355,9 +365,11 @@ const server = http.createServer((req, res) => {
         <!-- Main container -->
         <div class="container">
             <div class="card">
-                <img class="avatar"
-                src="https://i.pinimg.com/736x/3f/22/1a/3f221a0ad41e2d4e3c13a101c0d9f870.jpg"
-                alt="Profile">
+                <div class="avatar-wrapper">
+                    <img class="avatar"
+                    src="https://i.pinimg.com/736x/3f/22/1a/3f221a0ad41e2d4e3c13a101c0d9f870.jpg"
+                    alt="Profile">
+                </div>
 
                 <h1>🌹 Welcome to My Server 🌹</h1>
 
@@ -383,35 +395,8 @@ const server = http.createServer((req, res) => {
     `);
 });
 
-// Error handling
-server.on('error', (err) => {
-    if (err.code === 'EADDRINUSE') {
-        console.error(`❌ Error: Port ${port} is already in use`);
-        process.exit(1);
-    } else {
-        console.error('❌ Server error:', err);
-    }
-});
-
 server.listen(port, () => {
     console.log(
-        `✅ Server is running! เครื่องแม่ข่ายเปิดทำงานแล้วที่ช่องทาง: ${port}`
+        `Server is running! เครื่องแม่ข่ายเปิดทำงานแล้วที่ช่องทาง: ${port}`
     );
-});
-
-// Graceful shutdown
-process.on('SIGTERM', () => {
-    console.log('⏹️ SIGTERM signal received: closing HTTP server');
-    server.close(() => {
-        console.log('✅ HTTP server closed');
-        process.exit(0);
-    });
-});
-
-process.on('SIGINT', () => {
-    console.log('���️ SIGINT signal received: closing HTTP server');
-    server.close(() => {
-        console.log('✅ HTTP server closed');
-        process.exit(0);
-    });
 });
